@@ -142,6 +142,7 @@ BEGIN
     UPDATE server
     SET description = '';
     
+    -- Server Description is required
 	ALTER TABLE server
 	CHANGE COLUMN `description` `description` VARCHAR(900) NOT NULL DEFAULT '' COMMENT 'server description displayed on website';
 	
