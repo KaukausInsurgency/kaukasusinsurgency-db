@@ -14,3 +14,4 @@ SELECT * FROM backup_gameevents_log;
 
 TRUNCATE TABLE backup_connection_log;
 TRUNCATE TABLE backup_gameevents_log;
+-- TEST JENKINS COMMIT HOOK
