@@ -249,6 +249,35 @@ BEGIN
 	SET Version = "9f53850237cbb9e974bc31363b56d4f80d359511";
   END IF;
   
+  -- VERSION 0.90
+  IF Version = "9f53850237cbb9e974bc31363b56d4f80d359511" THEN
+  
+    -- Add DCS Client and Mod Version information to be used between Jenkins builds, Web App, and TCP Server
+    ALTER TABLE `meta` 
+	ADD COLUMN `dcs_client_version` VARCHAR(16) NULL AFTER `rpt_last_updated`;
+    
+    ALTER TABLE `meta` 
+	ADD COLUMN `dcs_client_guid` VARCHAR(48) NULL AFTER `dcs_client_version`;
+    
+    ALTER TABLE `meta` 
+	ADD COLUMN `dcs_mod_version` VARCHAR(48) NULL AFTER `dcs_client_guid`;
+    
+    ALTER TABLE `meta` 
+	ADD COLUMN `dcs_mod_guid` VARCHAR(48) NULL AFTER `dcs_mod_version`;
+    
+    ALTER TABLE `meta` 
+	ADD COLUMN `tcp_version` VARCHAR(48) NULL AFTER `dcs_mod_guid`;
+    
+    ALTER TABLE `meta` 
+	ADD COLUMN `tcp_guid` VARCHAR(48) NULL AFTER `tcp_version`;
+  
+    -- insert data
+    CALL INSERT_META("0.91", "45286265-c201-4f37-af29-f3e361ffc849");
+    
+    INSERT INTO ki_upgrade_log VALUES ("Database Upgraded To Version 0.91");
+    SET Version = "45286265-c201-4f37-af29-f3e361ffc849";
+  END IF;
+  
   INSERT INTO ki_upgrade_log VALUES ("Database Upgrade Successful");
   
   SELECT * FROM ki_upgrade_log;
